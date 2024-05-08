@@ -9,8 +9,8 @@ class Welc(commands.Cog):
     
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        welc_channel = welc.get_welc(member.guild.id)
-        welc_message = welc.get_welc_message(member.guild.id)
+        welc_channel = await welc.get_welc(member.guild.id)
+        welc_message = await welc.get_welc_message(member.guild.id)
         if welc_channel:
             channel = member.guild.get_channel(welc_channel)
             if welc_message:
