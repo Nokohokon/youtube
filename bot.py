@@ -10,6 +10,7 @@ class Bot(ezcord.Bot):
 
         super().__init__(intents=intents)
         self.ipc = Server(self, secret_key="keks")
+        self.load_cogs()
 
     async def on_ready(self):
         await self.ipc.start()
@@ -67,6 +68,7 @@ class Bot(ezcord.Bot):
 
     @Server.route()
     async def get_channel_name(self, data: ClientPayload):
+        print("Klappt")
         guild = self.get_guild(data.guild_id)
         channel = guild.get_channel(data.channel_id)
         return channel
@@ -76,5 +78,4 @@ class Bot(ezcord.Bot):
 
 
 bot = Bot()
-bot.load_cogs(directory="cogs")
-bot.run("TOKEN")
+bot.run("TOKEN")  # Hier den Bot-Token einfügen
