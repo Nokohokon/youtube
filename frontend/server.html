@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+    <h1> {{name}} </h1>
+    <a href=/guilds class="link">
+        <button class="button"> Zurück </button>
+    </a>
+    <a href=/logout class="link">
+        <button class="button"> Logout </button>
+    </a>
+
+    <h2> ID: {{id}} </h2>
+    <h2> Member: {{count}} </h2>
+
+    <a href=/server/{{id}}/settings/welcome class="link">
+        <button class="button"> Beispiel-Feature </button>
+    </a>
+    <br><br> {{ feature }}
+</body>
+</html>

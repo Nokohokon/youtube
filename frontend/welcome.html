@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+    <h1> CodingKeks Dashboard - Welcome </h1>
+    Join-Message-Channel: {{welc_channel}}
+
+    <form action="/server/{{guild_id}}/settings/welcome/channel" method="post" name="join_channel">
+        <label for="join_channel">Join-Message-Channel</label>
+        <select name="channel" id=""join_channel>
+            {% for channel in channels %}
+                {% set channel_parts = channel.split(' ') %}
+                <option value="{{ channel_parts[0] }}">{{ channel_parts[1] }}</option>
+            {% endfor %}
+            </select>
+            <input type="submit" value="Speichern">
+    </form>
+    <form action="/server/{{guild_id}}/settings/welcome/msg" method="post" name="join_message">
+        <label for="join_message">Join_Message</label>
+        <input type="text" name="msg" id="join_message" value="{{welc_message}}">
+        <input type="submit" value="Speichern">
+    </form>
+    
+</body>
+</html>
