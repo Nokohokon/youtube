@@ -71,7 +71,7 @@ class Bot(ezcord.Bot):
         print("Klappt")
         guild = self.get_guild(data.guild_id)
         channel = guild.get_channel(data.channel_id)
-        return channel
+        return channel.name
 
     async def on_ipc_error(self, endpoint: str, exc: Exception) -> None:
         raise exc
