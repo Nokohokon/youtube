@@ -98,8 +98,8 @@ class Welc(ezcord.DBHandler):
         await self.exec(f"UPDATE welc SET welc_channel = {welc_channel} WHERE guild_id = {guild_id}")
 
     async def set_welc_message(self,guild_id,welc_message):
-        await self.exec(f"INSERT OR IGNORE INTO welc (guild_id) VALUES ({guild_id})")
-        await self.exec(f"UPDATE welc SET welc_message = {welc_message} WHERE guild_id = {guild_id}")
+        await self.exec(f"INSERT OR IGNORE INTO welc (guild_id) VALUES (?)",(guild_id,))
+        await self.exec(f"UPDATE welc SET welc_message = (?) WHERE guild_id = (?)",(welc_message,guild_id))
 
 
 welc = Welc()
