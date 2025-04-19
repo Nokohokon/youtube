@@ -201,7 +201,10 @@ async def channel(request:Request,guild_id:int,session_id: str = Cookie(None), c
         )
     
 @app.post("/server/{guild_id}/settings/welcome/msg")
+#die methode für das setzen der verschiedenen settings aus dem formular
+#parameter ausm formular und den cookies
 async def join_message(request:Request,guild_id:int,session_id: str = Cookie(None), msg: str = Form(...)):
+    #user id von der session getten
     user_id = await db.get_user_id(session_id)
     if not session_id or not user_id:
         raise HTTPException(status_code=401, detail="no auth")
@@ -209,6 +212,7 @@ async def join_message(request:Request,guild_id:int,session_id: str = Cookie(Non
     perms = await ipc.request("check_perms", guild_id=guild_id, user_id=user_id)
     
     if perms.response["perms"]:
+        #halt die msg setzen mit dem aus dem formular
         await welc.set_welc_message(guild_id,msg)
         return templates.TemplateResponse(
             "back.html",
