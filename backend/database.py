@@ -72,11 +72,11 @@ class FeatureDB(ezcord.DBHandler):
             f"UPDATE settings SET {feature} = NOT {feature} WHERE guild_id = ?", guild_id
         )
 
-
+#eif erstlelung einer datenbank
 class Welc(ezcord.DBHandler):
     def __init__(self):
         super().__init__("dashboard.db")
-
+    #setupmethode mit den benötigten sachen für das feature
     async def setup(self):
         await self.exec(
             """CREATE TABLE IF NOT EXISTS welc (
@@ -85,18 +85,19 @@ class Welc(ezcord.DBHandler):
             welc_message TEXT DEFAULT NONE
             )"""
         )
-    
+    #methode für das getten des channels
     async def get_welc(self,guild_id):
         return await self.one(f"SELECT welc_channel FROM welc WHERE guild_id = {guild_id}")
     
-    
+        #methode für das getten der msg
     async def get_welc_message(self,guild_id):
         return await self.one(f"SELECT welc_message FROM welc WHERE guild_id = {guild_id}")
- 
+
+        #methode für das setten von den feature sachen
     async def set_welc(self,guild_id,welc_channel):
         await self.exec(f"INSERT OR IGNORE INTO welc (guild_id) VALUES ({guild_id})")
         await self.exec(f"UPDATE welc SET welc_channel = {welc_channel} WHERE guild_id = {guild_id}")
-
+    #methode für das setten der msg
     async def set_welc_message(self,guild_id,welc_message):
         await self.exec(f"INSERT OR IGNORE INTO welc (guild_id) VALUES (?)",(guild_id,))
         await self.exec(f"UPDATE welc SET welc_message = (?) WHERE guild_id = (?)",(welc_message,guild_id))
