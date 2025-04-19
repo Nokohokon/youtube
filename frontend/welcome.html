@@ -8,23 +8,47 @@
 </head>
 <body>
     <h1> CodingKeks Dashboard - Welcome </h1>
+    <!-- Anzeige des aktuell eingestellten Join-Message-Channels -->
     Join-Message-Channel: {{welc_channel}}
 
+    <!-- 
+        Formular zum Auswählen des Join-Message-Channels.
+        Die action verweist auf den Pfad, an den das Formular gesendet wird.
+        Die Methode "post" sorgt dafür, dass die Daten sicher übertragen werden.
+        Der Name des Formulars hilft bei der Identifikation im Backend.
+    -->
     <form action="/server/{{guild_id}}/settings/welcome/channel" method="post" name="join_channel">
         <label for="join_channel">Join-Message-Channel</label>
-        <select name="channel" id=""join_channel>
+        <!-- 
+            Dropdown-Auswahlfeld für die verfügbaren Channels.
+            Die Channels werden per Template-Loop dynamisch eingefügt.
+            Der Wert des <option>-Tags ist die Channel-ID, angezeigt wird der Name.
+        -->
+        <select name="channel" id="join_channel">
             {% for channel in channels %}
                 {% set channel_parts = channel.split(' ') %}
                 <option value="{{ channel_parts[0] }}">{{ channel_parts[1] }}</option>
             {% endfor %}
-            </select>
-            <input type="submit" value="Speichern">
-    </form>
-    <form action="/server/{{guild_id}}/settings/welcome/msg" method="post" name="join_message">
-        <label for="join_message">Join_Message</label>
-        <input type="text" name="msg" id="join_message" value="{{welc_message}}">
+        </select>
+        <!-- Button zum Absenden des Formulars -->
         <input type="submit" value="Speichern">
     </form>
-    
+
+    <!-- 
+        Formular zum Setzen der Join-Nachricht.
+        Die action verweist auf den Pfad, an den das Formular gesendet wird.
+        Die Methode "post" sorgt für sichere Übertragung.
+    -->
+    <form action="/server/{{guild_id}}/settings/welcome/msg" method="post" name="join_message">
+        <label for="join_message">Join_Message</label>
+        <!-- 
+            Textfeld für die Eingabe der Willkommensnachricht.
+            Der aktuelle Wert wird als Platzhalter angezeigt.
+        -->
+        <input type="text" name="msg" id="join_message" value="{{welc_message}}">
+        <!-- Button zum Absenden des Formulars -->
+        <input type="submit" value="Speichern">
+    </form>
 </body>
+
 </html>
